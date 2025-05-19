@@ -37,7 +37,7 @@ type TransactionAction =
 const mockTransactions: Transaction[] = [
   {
     _id: '1',
-    amount: 3000,
+    amount: 90000,
     type: 'income',
     category: 'salary',
     description: 'Monthly Salary',
@@ -45,7 +45,7 @@ const mockTransactions: Transaction[] = [
   },
   {
     _id: '2',
-    amount: 500,
+    amount: 15000,
     type: 'expense',
     category: 'food',
     description: 'Groceries',
@@ -53,7 +53,7 @@ const mockTransactions: Transaction[] = [
   },
   {
     _id: '3',
-    amount: 200,
+    amount: 6000,
     type: 'expense',
     category: 'entertainment',
     description: 'Movie night',
@@ -61,7 +61,7 @@ const mockTransactions: Transaction[] = [
   },
   {
     _id: '4',
-    amount: 1000,
+    amount: 30000,
     type: 'income',
     category: 'investment',
     description: 'Stock dividends',
@@ -69,7 +69,7 @@ const mockTransactions: Transaction[] = [
   },
   {
     _id: '5',
-    amount: 400,
+    amount: 12000,
     type: 'expense',
     category: 'utilities',
     description: 'Electricity bill',

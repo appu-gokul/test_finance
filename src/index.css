@@ -24,10 +24,14 @@
 body {
   font-family: 'Inter', sans-serif;
   @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  min-width: 320px;
+  overflow-x: hidden;
 }
 
 .card {
   @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .btn {
@@ -50,13 +54,17 @@ body {
   @apply bg-red-500 hover:bg-red-600 text-white;
 }
 
-.input {
+.input, select {
   @apply block w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .chart-container {
   @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4;
   min-height: 300px;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* Animation Classes */
@@ -85,4 +93,33 @@ body {
 @keyframes slideInRight {
   from { transform: translateX(20px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+/* Add responsive container class */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Improve table responsiveness */
+.overflow-x-auto {
+  min-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve grid responsiveness */
+.grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Improve sidebar responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    max-width: 300px;
+  }
 }

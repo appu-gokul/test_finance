@@ -4,6 +4,7 @@ import { useTransactions } from '../context/TransactionContext';
 import { format } from 'date-fns';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import TransactionForm from '../components/TransactionForm';
+import { formatCurrency, formatCurrencyWithDecimals } from '../utils/currency';
 
 const Dashboard = () => {
   const { transactions, totalIncome, totalExpenses, balance } = useTransactions();
@@ -43,8 +44,8 @@ const Dashboard = () => {
   const incomeVsExpenseData = last6Months.map(month => {
     return {
       name: month,
-      Income: Math.floor(Math.random() * 4000) + 1000, // Mock data
-      Expenses: Math.floor(Math.random() * 2500) + 500, // Mock data
+      Income: Math.floor(Math.random() * 120000) + 30000, // Mock data in INR
+      Expenses: Math.floor(Math.random() * 75000) + 15000, // Mock data in INR
     };
   });
 
@@ -65,28 +66,28 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8 animate-fade-in">
         <StatCard 
           title="Balance" 
-          value={`$${balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`} 
+          value={formatCurrencyWithDecimals(balance)} 
           icon={<Wallet className="w-8 h-8 text-primary-500" />} 
           trend={balance > 0 ? 'up' : 'down'}
           trendValue={balance !== 0 ? `${Math.abs((balance / totalIncome) * 100).toFixed(1)}%` : '0%'}
         />
         <StatCard 
           title="Income" 
-          value={`$${totalIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}`} 
+          value={formatCurrencyWithDecimals(totalIncome)} 
           icon={<TrendingUp className="w-8 h-8 text-green-500" />} 
           trend="up"
           trendValue="+12.5%"
         />
         <StatCard 
           title="Expenses" 
-          value={`$${totalExpenses.toLocaleString('en-US', { minimumFractionDigits: 2 })}`} 
+          value={formatCurrencyWithDecimals(totalExpenses)} 
           icon={<TrendingDown className="w-8 h-8 text-red-500" />} 
           trend="down"
           trendValue="+8.2%"
         />
         <StatCard 
           title="Upcoming Bills" 
-          value="$1,250.00" 
+          value={formatCurrencyWithDecimals(1250)} 
           icon={<Calendar className="w-8 h-8 text-amber-500" />} 
           trend="alert"
           trendValue="Due in 5 days"
@@ -107,7 +108,7 @@ const Dashboard = () => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip 
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+                formatter={(value) => [formatCurrency(Number(value)), undefined]}
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   borderRadius: '8px',
@@ -145,7 +146,7 @@ const Dashboard = () => {
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+                  formatter={(value) => [formatCurrency(Number(value)), undefined]}
                   contentStyle={{ 
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '8px',
@@ -207,7 +208,7 @@ const Dashboard = () => {
                     <td className={`px-4 py-3 text-right font-medium ${
                       transaction.type === 'income' ? 'text-green-600' : 'text-red-600'
                     }`}>
-                      {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      {transaction.type === 'income' ? '+' : '-'}{formatCurrencyWithDecimals(transaction.amount)}
                     </td>
                   </tr>
                 ))
@@ -259,9 +260,9 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, trend, trendVal
         <div className="p-3 rounded-full bg-primary-50 dark:bg-primary-900/30 mr-4">
           {icon}
         </div>
-        <div>
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-400 truncate">{title}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white truncate">{value}</p>
         </div>
       </div>
       <div className="mt-2">

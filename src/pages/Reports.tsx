@@ -5,33 +5,34 @@ import {
 } from 'recharts';
 import { Calendar, Download, Filter } from 'lucide-react';
 import { useTransactions } from '../context/TransactionContext';
+import { formatCurrency } from '../utils/currency';
 
-// Mock data for demonstration
+// Update mock data with more realistic INR values
 const monthlyData = [
-  { name: 'Jan', Income: 4000, Expenses: 2400 },
-  { name: 'Feb', Income: 3500, Expenses: 2200 },
-  { name: 'Mar', Income: 3800, Expenses: 2800 },
-  { name: 'Apr', Income: 4200, Expenses: 2600 },
-  { name: 'May', Income: 3900, Expenses: 2900 },
-  { name: 'Jun', Income: 4100, Expenses: 3100 },
+  { name: 'Jan', Income: 120000, Expenses: 75000 },
+  { name: 'Feb', Income: 105000, Expenses: 66000 },
+  { name: 'Mar', Income: 114000, Expenses: 84000 },
+  { name: 'Apr', Income: 126000, Expenses: 78000 },
+  { name: 'May', Income: 117000, Expenses: 87000 },
+  { name: 'Jun', Income: 123000, Expenses: 93000 },
 ];
 
 const categoryExpenseData = [
-  { name: 'Food', value: 800 },
-  { name: 'Housing', value: 1200 },
-  { name: 'Transport', value: 400 },
-  { name: 'Entertainment', value: 300 },
-  { name: 'Utilities', value: 500 },
-  { name: 'Others', value: 200 },
+  { name: 'Food', value: 24000 },
+  { name: 'Housing', value: 36000 },
+  { name: 'Transport', value: 12000 },
+  { name: 'Entertainment', value: 9000 },
+  { name: 'Utilities', value: 15000 },
+  { name: 'Others', value: 6000 },
 ];
 
 const savingsTrendData = [
-  { name: 'Jan', amount: 1600 },
-  { name: 'Feb', amount: 1300 },
-  { name: 'Mar', amount: 1000 },
-  { name: 'Apr', amount: 1600 },
-  { name: 'May', amount: 1000 },
-  { name: 'Jun', amount: 1000 },
+  { name: 'Jan', amount: 48000 },
+  { name: 'Feb', amount: 39000 },
+  { name: 'Mar', amount: 30000 },
+  { name: 'Apr', amount: 48000 },
+  { name: 'May', amount: 30000 },
+  { name: 'Jun', amount: 30000 },
 ];
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28CFF', '#FF9C9C'];
@@ -72,7 +73,7 @@ const Reports = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8 animate-fade-in">
         <div className="card p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Income</h3>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">$23,500</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatCurrency(23500)}</p>
           <p className="text-sm text-green-600 flex items-center mt-2">
             <span className="font-medium">↑ 12%</span>
             <span className="text-xs text-gray-500 ml-2">vs last period</span>
@@ -81,7 +82,7 @@ const Reports = () => {
         
         <div className="card p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Expenses</h3>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">$16,000</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatCurrency(16000)}</p>
           <p className="text-sm text-red-600 flex items-center mt-2">
             <span className="font-medium">↑ 8%</span>
             <span className="text-xs text-gray-500 ml-2">vs last period</span>
@@ -90,7 +91,7 @@ const Reports = () => {
         
         <div className="card p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Net Savings</h3>
-          <p className="text-2xl font-bold text-green-600">$7,500</p>
+          <p className="text-2xl font-bold text-green-600">{formatCurrency(7500)}</p>
           <p className="text-sm text-green-600 flex items-center mt-2">
             <span className="font-medium">↑ 18%</span>
             <span className="text-xs text-gray-500 ml-2">vs last period</span>
@@ -110,7 +111,7 @@ const Reports = () => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip 
-              formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+              formatter={(value) => [formatCurrency(Number(value)), undefined]}
               contentStyle={{ 
                 backgroundColor: 'rgba(255, 255, 255, 0.9)',
                 borderRadius: '8px',
@@ -149,7 +150,7 @@ const Reports = () => {
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+                formatter={(value) => [formatCurrency(Number(value)), undefined]}
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   borderRadius: '8px',
@@ -179,7 +180,7 @@ const Reports = () => {
               <YAxis />
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip 
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Savings']}
+                formatter={(value) => [formatCurrency(Number(value)), 'Savings']}
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   borderRadius: '8px',
@@ -207,7 +208,7 @@ const Reports = () => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip 
-              formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+              formatter={(value) => [formatCurrency(Number(value)), undefined]}
               contentStyle={{ 
                 backgroundColor: 'rgba(255, 255, 255, 0.9)',
                 borderRadius: '8px',

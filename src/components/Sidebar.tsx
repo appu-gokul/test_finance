@@ -11,11 +11,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+      <aside className="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 sticky top-0 h-screen">
         <div className="py-4 text-gray-500 dark:text-gray-400">
           <div className="flex items-center px-6 py-3">
             <DollarSign className="w-6 h-6 text-primary-600" />
-            <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white">FinTrack</span>
+            <span className="ml-2 text-xl font-bold text-gray-800 dark:text-white truncate">FinTrack</span>
           </div>
           <nav className="mt-6 px-2">
             {renderNavLinks()}

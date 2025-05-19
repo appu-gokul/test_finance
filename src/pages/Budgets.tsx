@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { PlusIcon, X, Edit, Trash2, AlertCircle } from 'lucide-react';
 import { useTransactions } from '../context/TransactionContext';
+import { formatCurrency } from '../utils/currency';
 
 // Types
 interface Budget {
@@ -15,12 +16,12 @@ interface Budget {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28CFF', '#FF9C9C', '#B4E49C'];
 
 const mockBudgets: Budget[] = [
-  { id: '1', category: 'Food', amount: 500, spent: 320, color: '#0088FE' },
-  { id: '2', category: 'Housing', amount: 1200, spent: 1200, color: '#00C49F' },
-  { id: '3', category: 'Transport', amount: 300, spent: 250, color: '#FFBB28' },
-  { id: '4', category: 'Entertainment', amount: 200, spent: 180, color: '#FF8042' },
-  { id: '5', category: 'Utilities', amount: 400, spent: 380, color: '#A28CFF' },
-  { id: '6', category: 'Shopping', amount: 300, spent: 420, color: '#FF9C9C' },
+  { id: '1', category: 'Food', amount: 15000, spent: 9500, color: '#0088FE' },
+  { id: '2', category: 'Housing', amount: 35000, spent: 35000, color: '#00C49F' },
+  { id: '3', category: 'Transport', amount: 8000, spent: 6500, color: '#FFBB28' },
+  { id: '4', category: 'Entertainment', amount: 5000, spent: 4500, color: '#FF8042' },
+  { id: '5', category: 'Utilities', amount: 12000, spent: 11500, color: '#A28CFF' },
+  { id: '6', category: 'Shopping', amount: 10000, spent: 12500, color: '#FF9C9C' },
 ];
 
 const Budgets = () => {
@@ -80,13 +81,13 @@ const Budgets = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8 animate-fade-in">
         <div className="card p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Budget</h3>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">${totalBudget.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatCurrency(totalBudget)}</p>
           <div className="mt-2 text-xs text-gray-500">Monthly budget</div>
         </div>
         
         <div className="card p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Total Spent</h3>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">${totalSpent.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{formatCurrency(totalSpent)}</p>
           <div className="mt-2 text-xs text-gray-500">
             {Math.round((totalSpent / totalBudget) * 100)}% of total budget
           </div>
@@ -96,7 +97,7 @@ const Budgets = () => {
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Remaining</h3>
           <p className={`text-2xl font-bold ${
             remainingBudget >= 0 ? 'text-green-600' : 'text-red-600'
-          }`}>${Math.abs(remainingBudget).toLocaleString()}</p>
+          }`}>{formatCurrency(Math.abs(remainingBudget))}</p>
           <div className="mt-2 text-xs text-gray-500">
             {remainingBudget < 0 ? 'Over budget' : 'Under budget'}
           </div>
@@ -123,7 +124,7 @@ const Budgets = () => {
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+                formatter={(value) => [formatCurrency(Number(value)), undefined]}
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   borderRadius: '8px',
@@ -155,7 +156,7 @@ const Budgets = () => {
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, undefined]}
+                formatter={(value) => [formatCurrency(Number(value)), undefined]}
                 contentStyle={{ 
                   backgroundColor: 'rgba(255, 255, 255, 0.9)',
                   borderRadius: '8px',
@@ -196,17 +197,17 @@ const Budgets = () => {
                       {budget.category}
                     </td>
                     <td className="px-6 py-4">
-                      ${budget.amount.toLocaleString()}
+                      {formatCurrency(budget.amount)}
                     </td>
                     <td className="px-6 py-4">
-                      ${budget.spent.toLocaleString()}
+                      {formatCurrency(budget.spent)}
                     </td>
                     <td className={`px-6 py-4 font-medium ${
                       isOverBudget ? 'text-red-600' : 'text-green-600'
                     }`}>
                       {isOverBudget 
-                        ? `-$${(budget.spent - budget.amount).toLocaleString()}`
-                        : `$${(budget.amount - budget.spent).toLocaleString()}`
+                        ? `-${formatCurrency(budget.spent - budget.amount)}`
+                        : `${formatCurrency(budget.amount - budget.spent)}`
                       }
                     </td>
                     <td className="px-6 py-4">
@@ -324,7 +325,7 @@ const Budgets = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <span className="text-gray-500">$</span>
+                    <span className="text-gray-500">{formatCurrency(0)}</span>
                   </div>
                   <input
                     type="number"

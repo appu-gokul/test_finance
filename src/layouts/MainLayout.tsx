@@ -7,7 +7,7 @@ const MainLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden">
       {/* Mobile sidebar */}
       <div 
         className={`fixed inset-0 z-20 transition-opacity bg-gray-900 bg-opacity-50 lg:hidden ${
@@ -20,10 +20,12 @@ const MainLayout: React.FC = () => {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       
       {/* Content area */}
-      <div className="flex flex-col flex-1 w-full">
+      <div className="flex flex-col flex-1 w-full min-w-0">
         <Header setSidebarOpen={setSidebarOpen} />
         <main className="flex-1 overflow-auto p-4 md:p-6">
-          <Outlet />
+          <div className="container mx-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

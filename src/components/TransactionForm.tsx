@@ -83,15 +83,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ transaction, onClose 
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <span className="text-gray-500">$</span>
+              <span className="text-gray-500">₹</span>
             </div>
             <input
               type="number"
-              step="0.01"
+              step="1"
               id="amount"
               {...register('amount', { 
                 required: 'Amount is required',
-                min: { value: 0.01, message: 'Amount must be greater than 0' }
+                min: { value: 1, message: 'Amount must be greater than 0' }
               })}
               className={`input pl-8 ${errors.amount ? 'border-red-500' : ''}`}
             />

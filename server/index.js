@@ -20,18 +20,27 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB (commented out until real DB is set up)
-/*
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connection established'))
-.catch((err) => console.error('MongoDB connection error:', err));
-*/
+// MongoDB Connection
+const connectDB = async () => {
+  try {
+    if (!process.env.MONGO_URI) {
+      throw new Error('MONGO_URI is not defined in environment variables');
+    }
 
-// Mock connection for development
-console.log('Using mock database for development');
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    
+    console.log('MongoDB connection established successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+    process.exit(1);
+  }
+};
+
+// Connect to MongoDB
+connectDB();
 
 // API routes
 app.use('/api/transactions', transactionRoutes);

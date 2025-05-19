@@ -10,8 +10,8 @@ const Header: React.FC<HeaderProps> = ({ setSidebarOpen }) => {
   const { darkMode, toggleTheme } = useTheme();
   
   return (
-    <header className="z-10 py-4 bg-white dark:bg-gray-800 shadow-sm">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto">
+    <header className="z-10 py-4 bg-white dark:bg-gray-800 shadow-sm sticky top-0">
+      <div className="container flex items-center justify-between h-full px-4 mx-auto">
         {/* Mobile hamburger */}
         <button
           className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple"

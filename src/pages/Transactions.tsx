@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { PlusIcon, Search, ChevronDown, X, Edit, Trash2 } from 'lucide-react';
 import { useTransactions, Transaction, TransactionType } from '../context/TransactionContext';
 import TransactionForm from '../components/TransactionForm';
+import { formatCurrencyWithDecimals } from '../utils/currency';
 
 const Transactions = () => {
   const { transactions, deleteTransaction } = useTransactions();
@@ -182,7 +183,7 @@ const Transactions = () => {
                     <td className={`px-6 py-4 text-right font-medium ${
                       transaction.type === 'income' ? 'text-green-600' : 'text-red-600'
                     }`}>
-                      {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      {transaction.type === 'income' ? '+' : '-'}{formatCurrencyWithDecimals(transaction.amount)}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex items-center justify-center gap-3">

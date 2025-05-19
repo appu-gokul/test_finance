@@ -128,14 +128,14 @@ const Settings = () => {
                 <select
                   id="currency"
                   name="currency"
-                  defaultValue="usd"
+                  defaultValue="inr"
                   className="input"
                 >
+                  <option value="inr">INR (₹) - Indian Rupee</option>
                   <option value="usd">USD ($) - US Dollar</option>
                   <option value="eur">EUR (€) - Euro</option>
                   <option value="gbp">GBP (£) - British Pound</option>
                   <option value="jpy">JPY (¥) - Japanese Yen</option>
-                  <option value="cad">CAD ($) - Canadian Dollar</option>
                 </select>
               </div>
               
